@@ -19,9 +19,9 @@ Original Author: Keith E Kratochvil
 
 This version: Jane Dallaway 
 
-Available from: http://docs.google.com/Doc?docid=0AfAkC4ZdTI9tZGNwc3d4amNfNmZ4enFubmNz&hl=en_GB 
+Available from: https://github.com/janedallaway/SQL-Server-Helper-Scripts
 
-Documentation at: http://jane.dallaway.com/tag/spu_generateinsert 
+Documentation at: https://github.com/janedallaway/SQL-Server-Helper-Scripts
 
 Date Created: March 16, 2000 
 

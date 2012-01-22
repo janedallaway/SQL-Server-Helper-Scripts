@@ -16,8 +16,8 @@ AS
 
 /*******************************************************************
 Author:  Jane Dallaway
-Updates at: http://jane.dallaway.com/downloads/SQL/FindTableColumnDataMatches.sql
-Documentation at: http://jane.dallaway.com/blog/labels/FindTableColumnDataMatches.html
+Updates at: https://github.com/janedallaway/SQL-Server-Helper-Scripts
+Documentation at: https://github.com/janedallaway/SQL-Server-Helper-Scripts
 Date Created: January 24th 2008
 Description: This procedure searches for @strSearchTerm amongst all text, ntext,
 varchar, nvarchar, char and nchar columns in all tables.  If this is run against

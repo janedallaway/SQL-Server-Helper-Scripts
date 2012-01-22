@@ -17,9 +17,9 @@ GO
 --
 -- Created: 15th April 2009
 --
--- This file available at : http://jane.dallaway.com/downloads/SQL/spu_compareprocedures.sql
+-- This file available at : https://github.com/janedallaway/SQL-Server-Helper-Scripts
 --
--- Documentation and updates at: http://jane.dallaway.com/blog/labels/spu_compareprocedures.html
+-- Documentation and updates at: https://github.com/janedallaway/SQL-Server-Helper-Scripts
 --
 --------------------------------------------------------------------------------------------
 -- Modification History:
