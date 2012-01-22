@@ -14,3 +14,6 @@ The scripts are:
 
 5. FindTableColumnDataMatches.sql - some code to effectively look for a term throughout all the text based columns of all tables. Notes [at this blog post](http://jane.dallaway.com/?sort=&search=FindTableColumnDataMatches)
 
+6. TSQLUnitHelpers.sql - Some extension functions to the original [TSQLUnit](http://tsqlunit.sourceforge.net/) code.  See [this blog post](http://jane.dallaway.com/tsqlunit-updates-helper-functions) for more information
+
+7. TSQLUnitIntroductionTests.sql - Some sample, simple, introductory tests used to introduce colleagues to [TSQLUnit](http://tsqlunit.sourceforge.net/). See [this blog post](http://jane.dallaway.com/tsqlunit-updates-helper-functions) for more information
