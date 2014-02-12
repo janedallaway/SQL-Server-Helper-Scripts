@@ -190,7 +190,7 @@ BEGIN
            AND so.name = c.TABLE_NAME 
            WHERE table_name = @table 
            AND TABLE_SCHEMA = @tableSchema -- added by James - 24/09/2010 
-           AND DATA_TYPE «»'timestamp' 
+           AND DATA_TYPE <> 'timestamp' 
            AND sc.IsComputed = 0       
            AND 1 =  
                CASE @GenerateIdentityColumn  
@@ -209,7 +209,7 @@ BEGIN
        
            FETCH NEXT FROM CR_Table INTO @ColName, @IsChar 
        
-     WHILE (@@fetch_status «» -1) 
+     WHILE (@@fetch_status <> -1) 
      BEGIN 
        
            IF @IsChar = 3 
@@ -221,7 +221,7 @@ BEGIN
            IF @IsChar = 5 
                   SET @bitHasEncounteredBinary = 1 
        
-           IF (@@fetch_status «» -2) 
+           IF (@@fetch_status <> -2) 
            BEGIN 
        
                   -- Updated by Jane - 15/01/08 - cope with xml, image, binary, varbinary etc 
@@ -251,7 +251,7 @@ BEGIN
                   -- Updated by Jane - 03/01/08 to cope with text and ntext - converts to VARCHAR(8000) to allow quote escaping 
                   -- Updated by Jane - 18/12/03 to prevent single field tables having that field displayed twice 
                   -- Updated by Jane - 20/08/08 to incorporate the @GenerateOneLinePerColumn parameter suggested by Christian 
-                  IF @@fetch_status «» -1 
+                  IF @@fetch_status <> -1 
                   BEGIN 
                           SELECT @Fields =  @Fields + '[' + @ColName + ']' + ', ' 
                           -- Updated by Jane - 08/06/09 - prefix string with N to cope with extended character sets 
@@ -279,7 +279,7 @@ BEGIN
      SELECT @SelList =  SUBSTRING(@SelList, 1,(len(@SelList)-1)) 
      SELECT @SelList = @SelList + ' FROM ' +@TableSchema +'.[' + @table + ']' 
        
-     IF LEN(@restriction) » 0 
+     IF LEN(@restriction) > 0 
      BEGIN 
            SELECT @SelList = @SelList + ' WHERE ' + @restriction 
      END 
@@ -310,9 +310,9 @@ BEGIN
      OPEN CR_Data 
      FETCH NEXT FROM CR_Data INTO @TableData 
        
-           WHILE (@@fetch_status «» -1) 
+           WHILE (@@fetch_status <> -1) 
            BEGIN 
-                 IF (@@fetch_status «» -2) 
+                 IF (@@fetch_status <> -2) 
                  BEGIN                                             
 
                        -- Updated by Jane 17/04/09 instead of printing at this point, store the output in a @statementToOutput variable.  This allows us to try and split it to  
@@ -336,7 +336,7 @@ SET @statementToOutput = 'UNION SELECT ' + @TableData
        
                        -- Added by Jane - 17/04/09 - check for length of @statementToOutput 
                        -- if it exceeds the maximum length, then lets attempt to split it on CRs as these will be done via separate PRINT statements 
-                       IF DATALENGTH(@statementToOutput) » @cintMaximumSupportedPrintByteCount                                                                                                                      
+                       IF DATALENGTH(@statementToOutput) > @cintMaximumSupportedPrintByteCount                                                                                                                      
                        BEGIN                                                       
 
                            -- Break the @statementToOutput based on CHAR(13) and put separate data values into @statementsToOutput table 
@@ -348,7 +348,7 @@ SET @statementToOutput = 'UNION SELECT ' + @TableData
                            SET @statementToOutput = REPLACE(@statementToOutput,CHAR(13)+CHAR(13),CHAR(13)) 
 
                            SET @NextCR = Charindex(CHAR(13),@statementToOutput) 
-                           WHILE @NextCR  » 0 
+                           WHILE @NextCR  > 0 
                            BEGIN 
                                 
                                INSERT INTO @statementsToOutput VALUES(LEFT(@statementToOutput,@NextCR - 1)) 
@@ -366,7 +366,7 @@ SET @statementToOutput = 'UNION SELECT ' + @TableData
    BEGIN 
                                SELECT TOP 1 @id = Id, @singleStatement = singlestatement 
                                FROM @statementsToOutput 
-                               WHERE id » @id 
+                               WHERE id > @id 
                                ORDER BY Id 
 
                                SET @loop = @@ROWCOUNT 
@@ -375,7 +375,7 @@ SET @statementToOutput = 'UNION SELECT ' + @TableData
                                     BREAK 
 
                                -- No guarantee that we still don't exceed the limits, but should have more of a chance of avoiding them 
-                               IF DATALENGTH(@singleStatement) » @cintMaximumSupportedPrintByteCount 
+                               IF DATALENGTH(@singleStatement) > @cintMaximumSupportedPrintByteCount 
                                BEGIN 
                                     SET @bitDataExceedMaxPrintLength = 1 
                                     SELECT @singleStatement                            
@@ -424,7 +424,7 @@ SET @statementToOutput = 'UNION SELECT ' + @TableData
      -- 16/02/09 - These checks are only required if the database is SQL Server 2000 
      DECLARE @Version VARCHAR(100) 
      SELECT @Version = @@VERSION 
-     IF PATINDEX('%8.00%',@Version) » 0 
+     IF PATINDEX('%8.00%',@Version) > 0 
      BEGIN 
           IF @bitHasEncounteredXML = 1 
           BEGIN 
